@@ -1,0 +1,8 @@
+#Play time fixer config file.
+#The ConsoleWarnings setting if set to false prevents the plugin from notifiying the console of a change in a players play time. The player notification setting disables or enables players recieving a message about their play time being changed. 
+#The log creation setting disables or enables the creation of log files to track which players have had their play time changed.
+NameOfWorldFile: 'world'
+NameOfPluginFolder: 'plugins'
+ConsoleWarnings: true
+LogCreation: true
+PlayerNotification: true

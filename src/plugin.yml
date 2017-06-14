@@ -1,0 +1,7 @@
+name: PlaytimeFixer
+author: Silence__
+main: com.gmail.likemoneysecretly.PlaytimeFixer.PlaytimeFixer
+version: 1
+description: Fixes the stats play time bug.
+   
+  
