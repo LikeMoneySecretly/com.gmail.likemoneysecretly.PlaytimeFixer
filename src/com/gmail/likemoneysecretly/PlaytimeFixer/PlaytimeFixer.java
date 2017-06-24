@@ -37,7 +37,6 @@ public class PlaytimeFixer extends JavaPlugin implements Listener{
     		ReadFile file = new ReadFile(Bukkit.getServer().getWorldContainer().getAbsolutePath().replace(".", world)+"\\stats"+slash+uuid+".json");
     		String[] text;
     		String[] data;
-    		
     		try{
     		text = file.OpenFile();
     		data = text[0].split(",");
@@ -125,11 +124,11 @@ public class PlaytimeFixer extends JavaPlugin implements Listener{
     						LogWriter write = new LogWriter(file_location, true);
     						write.writeToFile(date+" Log:");
     						write.writeToFile(" ");
-    						write.writeToFile("["+time+"] "+g.getName()+"'s (uuid = "+g.getUniqueId()+") play time was changed by "+difference+" seconds.");
+    						write.writeToFile("["+time+"] "+g.getName()+"'s (uuid = "+g.getUniqueId()+") play time was changed on "+world+" by "+difference+" seconds.");
     					}
     					else{
     						LogWriter write = new LogWriter(file_location, true);
-    						write.writeToFile("["+time+"] "+g.getName()+"'s (uuid = "+g.getUniqueId()+") play time was changed by "+difference+" seconds.");
+    						write.writeToFile("["+time+"] "+g.getName()+"'s (uuid = "+g.getUniqueId()+") play time was changed on "+world+" by "+difference+" seconds.");
     					}
     				}
     				read.UpdatePlaytime(uuid,MojangOneMinute,world);
