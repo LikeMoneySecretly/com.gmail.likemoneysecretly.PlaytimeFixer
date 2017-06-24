@@ -97,7 +97,7 @@ public class PlaytimeFixer extends JavaPlugin implements Listener{
     			MojangOneMinute = MojangOneMinute-OtherWorldsMinute;
     			int difference = MojangOneMinute-MainWorldMinute;
     			
-    			if(difference>60){//THIS IS A VERY IMPORTANT LINE: It basically chooses whether or not the plugin adds playtime or takes it away OR does both.
+    			if(difference>60){// THIS IS A VERY IMPORTANT LINE: It basically chooses whether or not the plugin adds playtime or takes it away OR does both.
     				
     				if(getConfig().getBoolean("ConsoleWarnings")==true){
     					ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
