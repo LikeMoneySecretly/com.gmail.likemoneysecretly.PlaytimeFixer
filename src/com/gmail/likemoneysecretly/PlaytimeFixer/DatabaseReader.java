@@ -26,44 +26,60 @@ public class DatabaseReader {
 	
 	
 	
-	public void UpdatePlaytime(String uuid,int playtime) throws SQLException{
-		String SQL = "SELECT*FROM "+Prefix+"playtime";
-		boolean nothalt=true;
+	public void UpdatePlaytime(String uuid,int playtime, String world) throws SQLException{
+		String SQL = "SELECT * FROM "+Prefix+"playtime WHERE uuid="+'"'+uuid+'"'+" AND world = "+'"'+world+'"';
 		
 		Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs2 = statement.executeQuery(SQL);
 		
-		while(rs2.next()&&nothalt==true){
+		while(rs2.next()){
 			
-	    	String unique_id = rs2.getString("uuid");
+	    	String World = rs2.getString("world");
 	    	
-			if(unique_id.indexOf(uuid)>-1){
-				nothalt=false;
+			if(World.equals(world)){
                 rs2.updateInt("value", playtime);
                 rs2.updateRow();
+                return;
 			}
 		}
+		
+		
+		statement.execute("INSERT INTO "+Prefix+"playtime (uuid,value,world) VALUES ('"+uuid+"','"+playtime+"','"+world+"')");
+		
 	}
 	
 	
 	
 	
-	public int DatabasePlaytime(String UUID) throws SQLException{
-		String SQL = "SELECT*FROM "+Prefix+"playtime";
+	public int OtherWorldsPlaytime(String UUID, String world) throws SQLException{
+		String SQL = "SELECT value, world FROM "+Prefix+"playtime WHERE uuid="+'"'+UUID+'"'+" AND world !="+'"'+world+'"';
 		Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = statement.executeQuery(SQL);
 		
-		int playtime = 0;
-		boolean nothalt = true;
+		int OtherWorldplaytime = 0;
+			
+		while(rs.next()){			
+	    	if(!(rs.getString("world").equals(world))){
+	    		OtherWorldplaytime=OtherWorldplaytime+rs.getInt("value");
+	    	}
+		}
+		return OtherWorldplaytime;
+	}
+	
+	
+	public int MainWorldPlaytime(String UUID, String world) throws SQLException{
+		int MainWorldplaytime = 0;
+		String SQL = "SELECT value, world FROM "+Prefix+"playtime WHERE uuid="+'"'+UUID+'"'+" AND world ="+'"'+world+'"';
+		Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = statement.executeQuery(SQL);
 		
-		while(rs.next()&&nothalt==true){			
-	    	String unique_id = rs.getString("uuid");
-			if(unique_id.indexOf(UUID)>-1){
-				nothalt=false;
-				playtime = rs.getInt("value");
+		while(rs.next()){
+			if(rs.getString("world").equals(world)){
+				MainWorldplaytime = rs.getInt("value");
+				return MainWorldplaytime;
 			}
-		}		
-		return playtime;
+		}
+		return MainWorldplaytime;
 	}
 	
 	

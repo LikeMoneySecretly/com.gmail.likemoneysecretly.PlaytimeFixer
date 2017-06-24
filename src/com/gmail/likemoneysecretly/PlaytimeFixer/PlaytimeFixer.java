@@ -20,26 +20,31 @@ public class PlaytimeFixer extends JavaPlugin implements Listener{
 	private Calendar cal = Calendar.getInstance();
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 	private SimpleDateFormat asdf = new SimpleDateFormat("H:m:s");
+	
 	@Override
 	public void onEnable(){
 		this.getServer().getPluginManager().registerEvents(this, this);
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 	}
+	
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void OnJoin(PlayerJoinEvent event){
 		    Player g = event.getPlayer();
     		String uuid = g.getUniqueId().toString();
     		String slash = "\\";
-    		ReadFile file = new ReadFile(Bukkit.getServer().getWorldContainer().getAbsolutePath().replace(".", getConfig().getString("NameOfWorldFile"))+"\\stats"+slash+uuid+".json");
+    		String world = getConfig().getString("NameOfWorldFile");
+    		ReadFile file = new ReadFile(Bukkit.getServer().getWorldContainer().getAbsolutePath().replace(".", world)+"\\stats"+slash+uuid+".json");
     		String[] text;
     		String[] data;
+    		
     		try{
     		text = file.OpenFile();
     		data = text[0].split(",");
     		String PlayOneMinute = "";
     		int MojangOneMinute = 0;
-    		int DatabaseMinute = 0;
+    		int MainWorldMinute = 0;
+    		int OtherWorldsMinute =0;
     		
     		try{
     			
@@ -87,9 +92,13 @@ public class PlaytimeFixer extends JavaPlugin implements Listener{
         			}
         		}
     			
-    			DatabaseMinute = read.DatabasePlaytime(g.getUniqueId().toString());
-    			int difference = MojangOneMinute-DatabaseMinute;
-    			if(difference>60){
+    			MainWorldMinute = read.MainWorldPlaytime(g.getUniqueId().toString(),world);
+    			OtherWorldsMinute = read.OtherWorldsPlaytime(g.getUniqueId().toString(), world);
+    			
+    			MojangOneMinute = MojangOneMinute-OtherWorldsMinute;
+    			int difference = MojangOneMinute-MainWorldMinute;
+    			
+    			if(difference>60){// THIS IS A VERY IMPORTANT LINE: It basically chooses whether or not the plugin adds playtime or takes it away OR does both.
     				
     				if(getConfig().getBoolean("ConsoleWarnings")==true){
     					ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
@@ -101,7 +110,6 @@ public class PlaytimeFixer extends JavaPlugin implements Listener{
     			            @Override
     			            public void run() {
     	    					g.sendMessage(ChatColor.GOLD +"["+ChatColor.RED+"PlaytimeFixer"+ChatColor.GOLD+"]"+ChatColor.GREEN+" Good news! A discrepancy between mojang and database play time on your account was noticed and your play time was updated by "+ChatColor.RED+difference+ChatColor.GREEN+" seconds! "+ChatColor.WHITE+" Remember to thank GodsDead for noticing this issue and Silence__ for fixing it!");
-
     			            }
     			            },100l);
     				}
@@ -124,7 +132,7 @@ public class PlaytimeFixer extends JavaPlugin implements Listener{
     						write.writeToFile("["+time+"] "+g.getName()+"'s (uuid = "+g.getUniqueId()+") play time was changed by "+difference+" seconds.");
     					}
     				}
-    				read.UpdatePlaytime(uuid,MojangOneMinute);
+    				read.UpdatePlaytime(uuid,MojangOneMinute,world);
     			}
     		}
     		catch (SQLException e){
