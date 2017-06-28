@@ -7,4 +7,4 @@ Commands:
                                    
 Permissions:                                                                                
 PlaytimeFixer.* : Gives a player access to all playtime fixer permissions.                            
-PlaytimeFixer.UpdatePlaytime : Gives a player access to the /UpdatePlaytime command. PlaytimeFixer.UpdateAllPlaytimes : Gives a player access to the /UpdateAllPlaytimes command.
+PlaytimeFixer.UpdatePlaytime : Gives a player access to the /UpdatePlaytime command. 
