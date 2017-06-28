@@ -3,5 +3,28 @@ author: Silence__
 main: com.gmail.likemoneysecretly.PlaytimeFixer.PlaytimeFixer
 version: 1
 description: Fixes the stats play time bug.
-   
+
+permissions:
+    PlaytimeFixer.*:
+      description: Gives a player permission to use all of the play time fixer commands.
+      children:
+          PlaytimeFixer.UpdatePlaytime: true
+          PlaytimeFixer.UpdateAllPlaytimes: true
+    PlaytimeFixer.UpdatePlaytime:
+        description: Gives a player permission to use the /UpdatePlaytime <name> command.
+        default: op
+    PlaytimeFixer.UpdateAllPlaytimes:
+        description: Gives a player permission to use the /UpdateAllPlaytimes command.
+        default: op
+
+
+commands:
+  UpdatePlaytime:
+    usage: /UpdatePlaytime <name>
+    description: Updates the playtime of the specified player.
+    aliases: [up, uplaytime, updatep, updatetime]
+  UpdateAllPlaytimes:
+    usage: /UpdateAllPlaytimes
+    description: Updates all online players playtimes.
+    aliases: [updateplaytimes, uap, updateallplaytime, updatealplaytime, uallplaytime, updateaplaytime, updateallp, updateall, updatealltime]    
   

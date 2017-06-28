@@ -6,3 +6,4 @@ NameOfPluginFolder: 'plugins'
 ConsoleWarnings: true
 LogCreation: true
 PlayerNotification: true
+Auto-Update: false
