@@ -78,12 +78,20 @@ public class PlaytimeFixer extends JavaPlugin implements Listener{
 						}
 						
 					}
-					sender.sendMessage(ChatColor.RED+"I'm sorry but the specified player "+ name+" is not currently online at the moment.");
+					sender.sendMessage(ChatColor.RED+"I'm sorry but the specified player "+ChatColor.AQUA+ name+ChatColor.RED+" is not currently online at the moment.");
 					return true;
 				}
 				else{
-					sender.sendMessage(ChatColor.RED+"I'm sorry but there are insufficient arguments to complete this command, please follow the usage: "+ChatColor.AQUA+"/UpdatePlaytime <name of target player>");
-					return true;
+					String name = sender.getName();
+					
+					for(Player p:Bukkit.getServer().getOnlinePlayers()){
+						
+						if(p.getName().equalsIgnoreCase(name)){
+							UpdatePlaytime(p);
+							sender.sendMessage(ChatColor.GREEN+"Successfully updated your own playtime.");
+							return true;
+						}
+					}
 				}
 			}
 			else{
