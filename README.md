@@ -13,10 +13,10 @@ Permissions:
   PlaytimeFixer.UpdateAllPlaytimes : Gives a player access to the /UpdateALlPlaytimes commmand.                                           
                                 
 Config file (Default settings):                                                          
- NameOfWorldFile: 'world'           Set the name of your world folder. THIS MUST BE EXACT                           
- NameOfPluginFolder: 'plugins'      Set the name of your plugin folder. THIS MUST BE EXACT                                   
- ConsoleWarnings: true              Disable or enable console warnings                            
- LogCreation: true                  Disable or enable log creation                                  
- PlayerNotification: true           Disable or enable player notification                                         
- Auto-Update: false                 Disable or enable the plugin updating a players stats when they log in. Disabled by default.                       
+ NameOfWorldFile: 'world'           (Set the name of your world folder. THIS MUST BE EXACT)                           
+ NameOfPluginFolder: 'plugins'      (Set the name of your plugin folder. THIS MUST BE EXACT)                                   
+ ConsoleWarnings: true              (Disable or enable console warnings)                            
+ LogCreation: true                  (Disable or enable log creation)                                  
+ PlayerNotification: true           (Disable or enable player notification)                                         
+ Auto-Update: false                 (Disable or enable the plugin updating a players stats when they log in. Disabled by default.)                       
  
