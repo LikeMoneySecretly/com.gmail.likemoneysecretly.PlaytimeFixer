@@ -10,7 +10,7 @@ Commands:
 Permissions:                                                                                
   PlaytimeFixer.* : Gives a player access to all playtime fixer permissions.                                                          
   PlaytimeFixer.UpdatePlaytime : Gives a player access to the /UpdatePlaytime command.                                                    
-  PlaytimeFixer.UpdateAllPlaytimes : Gives a player access to the /UpdateALlPlaytimes commmand.                                           
+  PlaytimeFixer.UpdateAllPlaytimes : Gives a player access to the /UpdateAllPlaytimes commmand.                                           
                                 
 Config file (Default settings):                                                          
  NameOfWorldFile: 'world'           (Set the name of your world folder. THIS MUST BE EXACT)                           
