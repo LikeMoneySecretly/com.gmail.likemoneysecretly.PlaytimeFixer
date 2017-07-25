@@ -106,9 +106,9 @@ public class PlaytimeFixer extends JavaPlugin implements Listener{
 	public void UpdatePlaytime(Player target){
 		Player g = target;
 		String uuid = g.getUniqueId().toString();
-		String slash = "\\";
+		String slash = "//";
 		String world = getConfig().getString("NameOfWorldFile");
-		ReadFile file = new ReadFile(Bukkit.getServer().getWorldContainer().getAbsolutePath().replace(".", world)+"\\stats"+slash+uuid+".json");
+		ReadFile file = new ReadFile(Bukkit.getServer().getWorldContainer().getAbsolutePath().replace(".", world)+"//stats"+slash+uuid+".json");
 		String[] text;
 		String[] data;
 		try{
@@ -133,21 +133,27 @@ public class PlaytimeFixer extends JavaPlugin implements Listener{
 			for(int i =0; i<StatsConfig.length;i++){
 				if(StatsConfig[i].contains("host")){
 					host = StatsConfig[i].replaceAll("host: ", "");
+					host = host.replace("'", "");
 				}
 				else if(StatsConfig[i].contains("port")){
 					port = StatsConfig[i].replace("port: ","");
+					port = port.replace("'", "");
 				}
 				else if(StatsConfig[i].contains("user")){
 					Username = StatsConfig[i].replace("user: ", "");
+					Username = Username.replace("'", "");
 				}
 				else if(StatsConfig[i].contains("pass")){
 					Password=StatsConfig[i].replace("pass: ", "");
+					Password = Password.replace("'", "");
 				}
 				else if(StatsConfig[i].contains("database")){
 					database = StatsConfig[i].replace("database: ", "");
+					database =database.replace("'", "");
 				}
 				else if(StatsConfig[i].contains("prefix")){
 					Prefix = StatsConfig[i].replace("prefix: ", "");
+					Prefix = Prefix.replace("'", "");
 				}  				
 			}
 			DatabaseConnectionString = "jdbc:mysql://"+host+":"+port+"/"+database;
@@ -182,7 +188,7 @@ public class PlaytimeFixer extends JavaPlugin implements Listener{
 			        scheduler.scheduleSyncDelayedTask(this, new Runnable() {
 			            @Override
 			            public void run() {
-	    					g.sendMessage(ChatColor.GOLD +"["+ChatColor.RED+"PlaytimeFixer"+ChatColor.GOLD+"]"+ChatColor.GREEN+" Good news! A discrepancy between mojang and database play time on your account was noticed and your play time was updated by "+ChatColor.RED+difference+ChatColor.GREEN+" seconds! "+ChatColor.WHITE+" Remember to thank GodsDead for noticing this issue and Silence__ for fixing it!");
+	    					g.sendMessage(ChatColor.GOLD +"["+ChatColor.RED+"PlaytimeFixer"+ChatColor.GOLD+"]"+ChatColor.GREEN+" Good news! A discrepancy between mojang and database play time on your account was noticed and your play time was updated by "+ChatColor.RED+difference+ChatColor.GREEN+" seconds! "+ChatColor.WHITE+" Remember to thank GodsDead for noticing this issue and Silence__ for fixing it!"+ChatColor.DARK_RED+"Please re-log for these changes to take place.");
 			            }
 			            },100l);
 				}
@@ -190,8 +196,8 @@ public class PlaytimeFixer extends JavaPlugin implements Listener{
 					LogCreator h = new LogCreator();
 					String date = sdf.format(cal.getTime()).toString();
 					String time = asdf.format(cal.getTime()).toString();
-					String directory = Bukkit.getServer().getWorldContainer().getAbsolutePath().replace(".", getConfig().getString("NameOfPluginFolder")+"\\PlaytimeFixer");
-					String file_location = directory+"\\"+date+"_Log.yml";
+					String directory = Bukkit.getServer().getWorldContainer().getAbsolutePath().replace(".", getConfig().getString("NameOfPluginFolder")+"//PlaytimeFixer");
+					String file_location = directory+"//"+date+"_Log.yml";
 					
 					if(h.DoesFileExist(file_location)==false){
 						h.LogCreator(directory ,sdf.format(cal.getTime()).toString()+"_Log.yml");
@@ -218,7 +224,7 @@ public class PlaytimeFixer extends JavaPlugin implements Listener{
 	}
 	
 	public String[] getStatsConfig() throws IOException{
-		String file_location = Bukkit.getServer().getWorldContainer().getAbsolutePath().replace(".", getConfig().getString("NameOfPluginFolder")+"\\Stats\\mysql.yml");
+		String file_location = Bukkit.getServer().getWorldContainer().getAbsolutePath().replace(".", getConfig().getString("NameOfPluginFolder")+"//Stats//mysql.yml");
 		ReadFile file = new ReadFile(file_location);
 		
 		String[] data = file.OpenFile();
